@@ -11,4 +11,9 @@
     <a href="login">LOGIN</a>
     <a href="board">BOARD</a>
     <a href="setCookie">COOKIE</a>
+    <a href="scope">SCOPE</a>
+    <a href="ex1">EX1</a>
+    <a href="scopecheck.jsp">SCOPE-CHECK</a>
+    <a href="jstl?jstl=false">SCRIPTLET</a>
+    <a href="jstl?jstl=ture">JSTL</a>
 </header>
