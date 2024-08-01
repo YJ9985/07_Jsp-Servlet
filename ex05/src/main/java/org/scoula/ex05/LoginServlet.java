@@ -1,4 +1,5 @@
 package org.scoula.ex05;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +11,13 @@ import java.io.PrintWriter;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=utf-8");
+        String userid = request.getParameter("userid");
+        String passwd = request.getParameter("passwd");
 
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("");
-        out.println("</body></html>");
+        request.setAttribute("userid", userid);
+        request.setAttribute("passwd", passwd);
+
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     @Override

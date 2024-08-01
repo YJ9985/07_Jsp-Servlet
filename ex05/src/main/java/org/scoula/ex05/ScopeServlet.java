@@ -1,4 +1,7 @@
 package org.scoula.ex05;
+
+import org.scoula.ex05.domain.Member;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
@@ -8,18 +11,25 @@ import java.io.PrintWriter;
 
 @WebServlet("/scope")
 public class ScopeServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=utf-8");
+    ServletContext sc;
 
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("");
-        out.println("</body></html>");
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        sc = config.getServletContext();
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        sc.setAttribute("scopeName", "applicationScope 값"); // Application Scope
+
+        HttpSession session = request.getSession(); // Session Scope
+        session.setAttribute("scopeName", "sessionScope 값");
+
+        request.setAttribute("scopeName", "requestScope 값"); // Request Scope
+        Member member = new Member("홍길동", "hong");
+        request.setAttribute("member", member);
+
+        request.getRequestDispatcher("scope.jsp").forward(request, response);
     }
 }

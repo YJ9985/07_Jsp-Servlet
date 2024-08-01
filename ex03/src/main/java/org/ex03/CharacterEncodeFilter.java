@@ -1,25 +1,23 @@
 package org.ex03;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.WebServlet;
 
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet("")
-public class CharacterEncodeFilter extends HttpServlet {
+@WebFilter(urlPatterns = {"/* "})
+public class CharacterEncodeFilter implements Filter {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=utf-8");
+    public void init(FilterConfig filterConfig) throws ServletException {
 
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("");
-        out.println("</body></html>");
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void destroy() {
 
+    }
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
+        chain.doFilter(request,response);
     }
 }
